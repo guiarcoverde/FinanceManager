@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FinanceManager.Communication\FinanceManager.Communication.csproj" />
+    <ProjectReference Include="..\FinanceManager.Domain\FinanceManager.Domain.csproj" />
+    <ProjectReference Include="..\FinanceManager.Exceptions\FinanceManager.Exceptions.csproj" />
+  </ItemGroup>
+
+</Project>
