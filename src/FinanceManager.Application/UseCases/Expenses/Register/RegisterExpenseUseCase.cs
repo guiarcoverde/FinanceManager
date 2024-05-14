@@ -1,6 +1,8 @@
 ﻿using FinanceManager.Communication.Enums;
 using FinanceManager.Communication.Requests;
 using FinanceManager.Communication.Responses;
+using FinanceManager.Exceptions.ExceptionsBase;
+using FluentValidation.Results;
 
 namespace FinanceManager.Application.UseCases.Expenses.Register;
 
@@ -17,27 +19,13 @@ public class RegisterExpenseUseCase
 
     private void Validate(RequestRegisterExpenseJson request)
     {
-        bool titleIsEmpty = string.IsNullOrWhiteSpace(request.Title);
-        if (titleIsEmpty)
-        {
-            throw new ArgumentException("The title is obligatory.");
-        }
+        RegisterExpenseValidator validator = new();
+        ValidationResult result = validator.Validate(request);
 
-        if (request.Amount <= 0)
+        if (!result.IsValid)
         {
-            throw new ArgumentException("The value must be greater than 0.");
-        }
-
-        int dateCompare = DateTime.Compare(request.Date, DateTime.UtcNow);
-        if (dateCompare > 0)
-        {
-            throw new ArgumentException("Expenses cannot be for the future");
-        }
-
-        bool isPaymentTypeValid =Enum.IsDefined(typeof(PaymentType), request.PaymentType);
-        if (!isPaymentTypeValid)
-        {
-            throw new ArgumentException("Payment type is not valid");
+            List<string> errorMessages = result.Errors.Select(f => f.ErrorMessage).ToList();   
+            throw new ErrorOnValidationException(errorMessages);
         }
     }
 }
