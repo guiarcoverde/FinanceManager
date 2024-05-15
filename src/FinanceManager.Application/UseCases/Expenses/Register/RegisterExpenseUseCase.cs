@@ -1,6 +1,6 @@
-﻿using FinanceManager.Communication.Enums;
-using FinanceManager.Communication.Requests;
+﻿using FinanceManager.Communication.Requests;
 using FinanceManager.Communication.Responses;
+using FinanceManager.Domain.Entities;
 using FinanceManager.Exceptions.ExceptionsBase;
 using FluentValidation.Results;
 
@@ -11,10 +11,17 @@ public class RegisterExpenseUseCase
     public ResponseRegisterExpenseJson Execute(RequestRegisterExpenseJson request)
     {
         Validate(request);
-        return new ResponseRegisterExpenseJson()
+
+        var entity = new Expense()
         {
+            Amount = request.Amount,
+            Date = request.Date,
+            Description = request.Description,
             Title = request.Title,
+            PaymentType = (Domain.Enums.PaymentType)request.PaymentType,
         };
+
+        return new ResponseRegisterExpenseJson();
     }
 
     private void Validate(RequestRegisterExpenseJson request)

@@ -7,7 +7,7 @@ public class CultureMiddleware
     private readonly RequestDelegate _next;
     public CultureMiddleware(RequestDelegate next)
     {
-        next = _next;
+        _next = next;
     }
     public async Task Invoke(HttpContext context)
     {
