@@ -11,10 +11,13 @@ namespace FinanceManager.API.Controllers;
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Register([FromBody]RequestRegisterExpenseJson request)
+    [ProducesResponseType(typeof(ResponseRegisterExpenseJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Register(
+        [FromBody]RequestRegisterExpenseJson request,
+        [FromServices]IRegisterExpenseUseCase useCase)
     {
-        RegisterExpenseUseCase useCase = new RegisterExpenseUseCase();
-        ResponseRegisterExpenseJson response = useCase.Execute(request);
+        ResponseRegisterExpenseJson response = await useCase.Execute(request);
 
         return Created(string.Empty, response);
     }
