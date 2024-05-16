@@ -9,19 +9,12 @@ using FluentValidation.Results;
 
 namespace FinanceManager.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase : IRegisterExpenseUseCase
+public class RegisterExpenseUseCase(IExpenseRepository repository, IUnityOfWork unityOfWork, IMapper mapper) : IRegisterExpenseUseCase
 {
 
-    private readonly IExpenseRepository _repository;
-    private readonly IUnityOfWork _unityOfWork;
-    private readonly IMapper _mapper;
-    public RegisterExpenseUseCase(IExpenseRepository repository, IUnityOfWork unityOfWork, IMapper mapper)
-    {
-        _repository = repository;
-        _unityOfWork = unityOfWork;
-        _mapper = mapper;
-
-    }
+    private readonly IExpenseRepository _repository = repository;
+    private readonly IUnityOfWork _unityOfWork = unityOfWork;
+    private readonly IMapper _mapper = mapper;
 
     public async Task<ResponseRegisterExpenseJson> Execute(RequestRegisterExpenseJson request)
     {

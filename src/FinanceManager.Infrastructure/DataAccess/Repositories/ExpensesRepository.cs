@@ -4,13 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceManager.Infrastructure.DataAccess.Repositories;
 
-internal class ExpensesRepository : IExpenseRepository
+internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseRepository
 {
-    private readonly FinanceManagerDbContext _dbContext;
-    public ExpensesRepository(FinanceManagerDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    private readonly FinanceManagerDbContext _dbContext = dbContext;
+
     public async Task Add(Expense expense)
     {
         await _dbContext.Expenses.AddAsync(expense);
