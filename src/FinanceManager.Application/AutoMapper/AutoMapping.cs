@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using FinanceManager.Communication.Requests;
-using FinanceManager.Communication.Responses;
+using FinanceManager.Communication.Responses.GetAll;
+using FinanceManager.Communication.Responses.GetExpenseById;
+using FinanceManager.Communication.Responses.Register;
 using FinanceManager.Domain.Entities;
 
 namespace FinanceManager.Application.AutoMapper;
@@ -20,6 +22,9 @@ public class AutoMapping : Profile
 
     private void EntityToResponse()
     {
-        CreateMap<Expense, ResponseErrorJson>();
+        CreateMap<Expense, ResponseRegisterExpenseJson>();
+        CreateMap<Expense, ResponseShortExpensesJson>();
+        CreateMap<Expense, ResponseExpenseJson>();
+
     }
 }

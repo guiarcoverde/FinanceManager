@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Communication.Responses;
+﻿namespace FinanceManager.Communication.Responses.Register;
 
 public class ResponseRegisterExpenseJson
 {

@@ -61,7 +61,7 @@ namespace FinanceManager.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The amount must be greater than 0.
+        ///   Looks up a localized string similar to The amount must be greater than 0..
         /// </summary>
         public static string AMOUNT_MUST_BE_GREATER_THAN_ZERO {
             get {
@@ -70,7 +70,16 @@ namespace FinanceManager.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expenses cannot be registered in the future.
+        ///   Looks up a localized string similar to Expense not found..
+        /// </summary>
+        public static string EXPENSE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("EXPENSE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expenses cannot be registered in the future..
         /// </summary>
         public static string EXPENSES_CANNOT_BE_FUTURE {
             get {
@@ -79,7 +88,7 @@ namespace FinanceManager.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The payment type is invalid.
+        ///   Looks up a localized string similar to The payment type is invalid..
         /// </summary>
         public static string INVALID_PAYMENT_TYPE {
             get {
@@ -88,7 +97,7 @@ namespace FinanceManager.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The title is required.
+        ///   Looks up a localized string similar to The title is required..
         /// </summary>
         public static string TITLE_REQUIRED {
             get {
@@ -97,7 +106,7 @@ namespace FinanceManager.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown Error.
+        ///   Looks up a localized string similar to Unknown Error..
         /// </summary>
         public static string UNKNOWN_ERROR {
             get {

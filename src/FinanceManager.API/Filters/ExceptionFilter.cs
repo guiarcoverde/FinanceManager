@@ -1,4 +1,4 @@
-﻿using FinanceManager.Communication.Responses;
+﻿using FinanceManager.Communication.Responses.Register;
 using FinanceManager.Exceptions;
 using FinanceManager.Exceptions.ExceptionsBase;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +23,17 @@ public class ExceptionFilter : IExceptionFilter
 
     private void HandleProjectException(ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationException)
+        if (context.Exception is ErrorOnValidationException errorOnValidationException)
         {
-            var ex = context.Exception as ErrorOnValidationException;
-            ResponseErrorJson errorResponse = new(ex.Errors);
+            ResponseErrorJson errorResponse = new(errorOnValidationException.Errors);
 
             context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Result = new BadRequestObjectResult(errorResponse);
+        }
+        else if (context.Exception is NotFoundException notFoundException)
+        {
+            ResponseErrorJson errorResponse = new(notFoundException.Message);
+            context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
             context.Result = new BadRequestObjectResult(errorResponse);
         }
         else

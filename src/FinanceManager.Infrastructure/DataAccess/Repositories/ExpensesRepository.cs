@@ -1,7 +1,6 @@
 ﻿using FinanceManager.Domain.Entities;
 using FinanceManager.Domain.Repositories.Expenses;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinanceManager.Infrastructure.DataAccess.Repositories;
 
@@ -16,6 +15,10 @@ internal class ExpensesRepository : IExpenseRepository
     {
         await _dbContext.Expenses.AddAsync(expense);
     }
+
+    public async Task<List<Expense>> GetAll() => await _dbContext.Expenses.AsNoTracking().ToListAsync();
+
+    public async Task<Expense?> GetById(long id) => await _dbContext.Expenses.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
 }
 
 
