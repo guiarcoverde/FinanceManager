@@ -1,6 +1,13 @@
-﻿namespace FinanceManager.Exceptions.ExceptionsBase;
+﻿using System.Net;
+
+namespace FinanceManager.Exceptions.ExceptionsBase;
 
 public class ErrorOnValidationException(List<string> errorsMessages) : FinanceManagerException(string.Empty)
 {
-    public List<string> Errors { get; set; } = errorsMessages;
+    private readonly List<string> _errors = errorsMessages;
+    public override int StatusCode => (int)HttpStatusCode.BadRequest;
+    public override List<string> GetErrors()
+    {
+        return _errors;
+    }
 }

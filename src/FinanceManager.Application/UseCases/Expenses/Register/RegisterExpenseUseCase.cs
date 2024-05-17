@@ -9,10 +9,10 @@ using FluentValidation.Results;
 
 namespace FinanceManager.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase(IExpenseRepository repository, IUnityOfWork unityOfWork, IMapper mapper) : IRegisterExpenseUseCase
+public class RegisterExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnityOfWork unityOfWork, IMapper mapper) : IRegisterExpenseUseCase
 {
 
-    private readonly IExpenseRepository _repository = repository;
+    private readonly IExpenseWriteOnlyRepository _repository = repository;
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
     private readonly IMapper _mapper = mapper;
 

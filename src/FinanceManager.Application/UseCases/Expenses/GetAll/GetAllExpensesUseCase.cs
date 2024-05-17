@@ -4,9 +4,9 @@ using FinanceManager.Domain.Repositories.Expenses;
 
 namespace FinanceManager.Application.UseCases.Expenses.GetAll;
 
-public class GetAllExpensesUseCase(IExpenseRepository repository, IMapper mapper) : IGetAllExpensesUseCase
+public class GetAllExpensesUseCase(IExpenseReadOnlyRepository repository, IMapper mapper) : IGetAllExpensesUseCase
 {
-    private readonly IExpenseRepository _expenseRepository = repository;
+    private readonly IExpenseReadOnlyRepository _expenseRepository = repository;
     private readonly IMapper _mapper = mapper;
 
     public async Task<ResponseExpensesJson> Execute()

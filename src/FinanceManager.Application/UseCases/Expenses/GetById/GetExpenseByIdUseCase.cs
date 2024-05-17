@@ -6,9 +6,9 @@ using FinanceManager.Exceptions.ExceptionsBase;
 
 namespace FinanceManager.Application.UseCases.Expenses.GetById;
 
-public class GetExpenseByIdUseCase(IExpenseRepository expenseRepository, IMapper mapper) : IGetExpenseByIdUseCase
+public class GetExpenseByIdUseCase(IExpenseReadOnlyRepository expenseRepository, IMapper mapper) : IGetExpenseByIdUseCase
 {
-    private readonly IExpenseRepository _expenseRepository = expenseRepository;
+    private readonly IExpenseReadOnlyRepository _expenseRepository = expenseRepository;
     private readonly IMapper _mapper = mapper;
 
     public async Task<ResponseExpenseJson> Execute(long id)

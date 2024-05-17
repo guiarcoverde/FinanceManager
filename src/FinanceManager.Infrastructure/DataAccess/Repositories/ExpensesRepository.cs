@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceManager.Infrastructure.DataAccess.Repositories;
 
-internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseRepository
+internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseReadOnlyRepository, IExpenseWriteOnlyRepository
 {
     private readonly FinanceManagerDbContext _dbContext = dbContext;
 
