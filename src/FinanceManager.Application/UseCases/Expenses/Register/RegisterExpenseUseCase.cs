@@ -16,7 +16,7 @@ public class RegisterExpenseUseCase(IExpenseWriteOnlyRepository repository, IUni
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
     private readonly IMapper _mapper = mapper;
 
-    public async Task<ResponseRegisterExpenseJson> Execute(RequestRegisterExpenseJson request)
+    public async Task<ResponseRegisterExpenseJson> Execute(RequestExpenseJson request)
     {
         Validate(request);
 
@@ -29,9 +29,9 @@ public class RegisterExpenseUseCase(IExpenseWriteOnlyRepository repository, IUni
         return _mapper.Map<ResponseRegisterExpenseJson>(entity);
     }
 
-    private void Validate(RequestRegisterExpenseJson request)
+    private void Validate(RequestExpenseJson request)
     {
-        RegisterExpenseValidator validator = new();
+        ExpenseValidator validator = new();
         var result = validator.Validate(request);
 
         if (!result.IsValid)

@@ -11,7 +11,7 @@ public class DeleteExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnity
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
     
 
-    public async Task Delete(long id)
+    public async Task Execute(long id)
     {
         var result = await _repository.Delete(id);
 

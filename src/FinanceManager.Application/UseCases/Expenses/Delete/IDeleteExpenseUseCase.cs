@@ -2,5 +2,5 @@
 
 public interface IDeleteExpenseUseCase
 {
-    Task Delete(long id);
+    Task Execute(long id);
 }
