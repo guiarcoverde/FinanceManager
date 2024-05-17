@@ -1,4 +1,5 @@
-﻿using FinanceManager.Application.UseCases.Expenses.GetAll;
+﻿using FinanceManager.Application.UseCases.Expenses.Delete;
+using FinanceManager.Application.UseCases.Expenses.GetAll;
 using FinanceManager.Application.UseCases.Expenses.GetById;
 using FinanceManager.Application.UseCases.Expenses.Register;
 using FinanceManager.Communication.Requests;
@@ -50,6 +51,16 @@ public class ExpensesController : ControllerBase
         var response = await useCase.Execute(id);
 
         return Ok(response);
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete ([FromRoute] long id, [FromServices] IDeleteExpenseUseCase useCase)
+
+    {
+        await useCase.Delete(id);
+        return NoContent();
     }
 
 }

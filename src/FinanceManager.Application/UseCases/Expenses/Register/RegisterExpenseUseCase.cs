@@ -32,7 +32,7 @@ public class RegisterExpenseUseCase(IExpenseWriteOnlyRepository repository, IUni
     private void Validate(RequestRegisterExpenseJson request)
     {
         RegisterExpenseValidator validator = new();
-        ValidationResult result = validator.Validate(request);
+        var result = validator.Validate(request);
 
         if (!result.IsValid)
         {

@@ -13,6 +13,19 @@ internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseR
         await _dbContext.Expenses.AddAsync(expense);
     }
 
+    public async Task<bool> Delete(long id)
+    {
+        var result = await _dbContext.Expenses.FirstOrDefaultAsync(e => e.Id == id);
+
+        if (result is null)
+        {
+            return false;
+        }
+
+        _dbContext.Expenses.Remove(result);
+        return true;
+    }
+
     public async Task<List<Expense>> GetAll() => await _dbContext.Expenses.AsNoTracking().ToListAsync();
 
     public async Task<Expense?> GetById(long id) => await _dbContext.Expenses.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
