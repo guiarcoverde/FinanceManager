@@ -3,10 +3,11 @@ using FinanceManager.Application.UseCases.Expenses.GetAll;
 using FinanceManager.Application.UseCases.Expenses.GetById;
 using FinanceManager.Application.UseCases.Expenses.Register;
 using FinanceManager.Application.UseCases.Expenses.Update;
-using FinanceManager.Communication.Requests;
-using FinanceManager.Communication.Responses.GetAll;
-using FinanceManager.Communication.Responses.GetExpenseById;
-using FinanceManager.Communication.Responses.Register;
+using FinanceManager.Communication.Requests.Expenses;
+using FinanceManager.Communication.Responses;
+using FinanceManager.Communication.Responses.Expenses.GetAll;
+using FinanceManager.Communication.Responses.Expenses.GetExpenseById;
+using FinanceManager.Communication.Responses.Expenses.Register;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceManager.API.Controllers;
@@ -22,7 +23,7 @@ public class ExpensesController : ControllerBase
         [FromBody]RequestExpenseJson request,
         [FromServices]IRegisterExpenseUseCase useCase)
     {
-        ResponseRegisterExpenseJson response = await useCase.Execute(request);
+        var response = await useCase.Execute(request);
 
         return Created(string.Empty, response);
     }

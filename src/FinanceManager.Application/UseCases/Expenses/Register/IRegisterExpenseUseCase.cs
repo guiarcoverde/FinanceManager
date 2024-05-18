@@ -1,5 +1,5 @@
-﻿using FinanceManager.Communication.Requests;
-using FinanceManager.Communication.Responses.Register;
+﻿using FinanceManager.Communication.Requests.Expenses;
+using FinanceManager.Communication.Responses.Expenses.Register;
 
 namespace FinanceManager.Application.UseCases.Expenses.Register;
 public interface IRegisterExpenseUseCase

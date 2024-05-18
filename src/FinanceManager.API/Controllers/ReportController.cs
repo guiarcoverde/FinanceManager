@@ -15,7 +15,7 @@ public class ReportController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetExcelReport([FromServices] IGenerateExpensesReportExcelUseCase useCase, [FromHeader]DateTime month)
     {
-        byte[] excelFile = await useCase.Execute(month);
+        var excelFile = await useCase.Execute(month);
 
         if (excelFile.Length > 0)
         {

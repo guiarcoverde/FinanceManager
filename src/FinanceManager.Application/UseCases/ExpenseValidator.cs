@@ -1,4 +1,5 @@
 ﻿using FinanceManager.Communication.Requests;
+using FinanceManager.Communication.Requests.Expenses;
 using FinanceManager.Exceptions;
 using FluentValidation;
 

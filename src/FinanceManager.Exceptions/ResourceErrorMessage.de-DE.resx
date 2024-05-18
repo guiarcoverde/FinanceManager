@@ -135,4 +135,10 @@
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Unbekannter Fehler</value>
   </data>
+  <data name="INVALID_SOURCE" xml:space="preserve">
+    <value>Die Einkommensquelle ist ungültig.</value>
+  </data>
+  <data name="INCOME_NOT_FOUND" xml:space="preserve">
+    <value>Einkommen nicht gefunden.</value>
+  </data>
 </root>

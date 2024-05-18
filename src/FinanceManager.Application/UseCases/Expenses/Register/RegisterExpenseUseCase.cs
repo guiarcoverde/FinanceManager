@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FinanceManager.Communication.Requests;
-using FinanceManager.Communication.Responses.Register;
+using FinanceManager.Communication.Requests.Expenses;
+using FinanceManager.Communication.Responses.Expenses.Register;
 using FinanceManager.Domain.Entities;
 using FinanceManager.Domain.Repositories;
 using FinanceManager.Domain.Repositories.Expenses;

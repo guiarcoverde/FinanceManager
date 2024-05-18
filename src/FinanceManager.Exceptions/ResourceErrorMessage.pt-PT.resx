@@ -135,4 +135,10 @@
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro Desconhecido</value>
   </data>
+  <data name="INVALID_SOURCE" xml:space="preserve">
+    <value>A fonte de renda é inválida.</value>
+  </data>
+  <data name="INCOME_NOT_FOUND" xml:space="preserve">
+    <value>Rendimento não encontrado.</value>
+  </data>
 </root>

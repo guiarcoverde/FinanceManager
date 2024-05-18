@@ -2,6 +2,7 @@
 using FinanceManager.Communication.Enums;
 using FinanceManager.Communication.Requests;
 using System.ComponentModel.DataAnnotations;
+using FinanceManager.Communication.Requests.Expenses;
 
 namespace CommonTestUtilities.Requests;
 

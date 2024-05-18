@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FinanceManager.Communication.Requests;
+using FinanceManager.Communication.Requests.Expenses;
 using FinanceManager.Domain.Repositories;
 using FinanceManager.Domain.Repositories.Expenses;
 using FinanceManager.Exceptions;
@@ -35,7 +35,7 @@ public class UpdateExpenseUseCase(IMapper mapper, IUnityOfWork unityOfWork, IExp
         var validator = new ExpenseValidator();
         var result = validator.Validate(request);
 
-        if (result.IsValid is true) return;
+        if (result.IsValid) return;
         var errorMessages = result.Errors.Select(f => f.ErrorMessage).ToList();
         throw new ErrorOnValidationException(errorMessages);
     }

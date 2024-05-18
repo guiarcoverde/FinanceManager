@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FinanceManager.Communication.Responses.GetAll;
+using FinanceManager.Communication.Responses.Expenses.GetAll;
 using FinanceManager.Domain.Repositories.Expenses;
 
 namespace FinanceManager.Application.UseCases.Expenses.GetAll;

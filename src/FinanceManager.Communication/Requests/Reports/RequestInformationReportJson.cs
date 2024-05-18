@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Communication.Requests;
+﻿namespace FinanceManager.Communication.Requests.Reports;
 
 public class RequestInformationReportJson
 {

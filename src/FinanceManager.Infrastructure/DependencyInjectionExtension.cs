@@ -1,5 +1,6 @@
 ﻿using FinanceManager.Domain.Repositories;
 using FinanceManager.Domain.Repositories.Expenses;
+using FinanceManager.Domain.Repositories.Incomes;
 using FinanceManager.Infrastructure.DataAccess;
 using FinanceManager.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -22,14 +23,20 @@ public static class DependencyInjectionExtension
         services.AddScoped<IExpenseReadOnlyRepository, ExpensesRepository>();
         services.AddScoped<IExpenseWriteOnlyRepository, ExpensesRepository>();
         services.AddScoped<IExpenseUpdateOnlyRepository, ExpensesRepository>();
+        services.AddScoped<IIncomeWriteOnlyRepository, IncomesRepository>();
+        services.AddScoped<IIncomeReadOnlyRepository, IncomesRepository>();
+        services.AddScoped<IIncomeUpdateOnlyRepository, IncomesRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("DbConnection");
-        var serverVersion = new MySqlServerVersion(new Version(8, 0, 37));
+        // var connectionString = configuration.GetConnectionString("DbConnection");
+        // var serverVersion = new MySqlServerVersion(new Version(8, 0, 37));
+        var pgDevConnectionString = configuration.GetConnectionString("PgConnectionDev");
+        services.AddDbContext<FinanceManagerDbContext>(config => config.UseNpgsql(pgDevConnectionString));
 
+        // services.AddDbContext<FinanceManagerDbContext>(config => config.UseMySql(connectionString, serverVersion));
 
-        services.AddDbContext<FinanceManagerDbContext>(config => config.UseMySql(connectionString, serverVersion));
     }
+    
 }

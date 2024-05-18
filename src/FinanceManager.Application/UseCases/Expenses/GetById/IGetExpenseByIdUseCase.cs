@@ -1,4 +1,4 @@
-﻿using FinanceManager.Communication.Responses.GetExpenseById;
+﻿using FinanceManager.Communication.Responses.Expenses.GetExpenseById;
 
 namespace FinanceManager.Application.UseCases.Expenses.GetById;
 public interface IGetExpenseByIdUseCase

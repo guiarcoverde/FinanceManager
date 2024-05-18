@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FinanceManager.Communication.Responses.GetExpenseById;
+using FinanceManager.Communication.Responses.Expenses.GetExpenseById;
 using FinanceManager.Domain.Repositories.Expenses;
 using FinanceManager.Exceptions;
 using FinanceManager.Exceptions.ExceptionsBase;

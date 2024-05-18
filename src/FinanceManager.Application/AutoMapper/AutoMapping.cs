@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using FinanceManager.Communication.Requests;
-using FinanceManager.Communication.Responses.GetAll;
-using FinanceManager.Communication.Responses.GetExpenseById;
-using FinanceManager.Communication.Responses.Register;
+using FinanceManager.Communication.Requests.Expenses;
+using FinanceManager.Communication.Requests.Incomes;
+using FinanceManager.Communication.Responses.Expenses.GetAll;
+using FinanceManager.Communication.Responses.Expenses.GetExpenseById;
+using FinanceManager.Communication.Responses.Expenses.Register;
+using FinanceManager.Communication.Responses.Incomes.Register;
 using FinanceManager.Domain.Entities;
 
 namespace FinanceManager.Application.AutoMapper;
@@ -18,6 +21,7 @@ public class AutoMapping : Profile
     private void RequestToEntity()
     {
         CreateMap<RequestExpenseJson, Expense>();
+        CreateMap<RequestIncomeRegistrationJson, Income>();
     }
 
     private void EntityToResponse()
@@ -25,6 +29,6 @@ public class AutoMapping : Profile
         CreateMap<Expense, ResponseRegisterExpenseJson>();
         CreateMap<Expense, ResponseShortExpensesJson>();
         CreateMap<Expense, ResponseExpenseJson>();
-
+        CreateMap<Income, ResponseRegisterIncomeJson>();
     }
 }

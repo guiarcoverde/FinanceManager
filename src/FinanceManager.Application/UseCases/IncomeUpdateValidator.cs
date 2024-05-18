@@ -1,0 +1,14 @@
+﻿using FinanceManager.Communication.Requests.Incomes;
+using FinanceManager.Exceptions;
+using FluentValidation;
+
+namespace FinanceManager.Application.UseCases;
+
+public class IncomeUpdateValidator : AbstractValidator<RequestIncomeUpdateJson>
+{
+    public IncomeUpdateValidator()
+    {
+        RuleFor(income => income.Title).NotEmpty().WithMessage(ResourceErrorMessage.TITLE_REQUIRED);
+        RuleFor(income => income.Amount).GreaterThan(0).WithMessage(ResourceErrorMessage.AMOUNT_MUST_BE_GREATER_THAN_ZERO);
+    }
+}

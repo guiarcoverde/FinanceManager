@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Communication.Responses.GetAll;
+﻿namespace FinanceManager.Communication.Responses.Expenses.GetAll;
 
 public class ResponseShortExpensesJson
 {

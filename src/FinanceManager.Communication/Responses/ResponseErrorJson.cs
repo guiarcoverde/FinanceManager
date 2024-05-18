@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Communication.Responses.Register;
+﻿namespace FinanceManager.Communication.Responses;
 
 public class ResponseErrorJson
 {

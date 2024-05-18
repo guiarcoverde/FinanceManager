@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Configuration.GetConnectionString("DbConnection");
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();

@@ -1,8 +1,8 @@
 ﻿using FinanceManager.Communication.Enums;
 
-namespace FinanceManager.Communication.Responses.GetExpenseById;
+namespace FinanceManager.Communication.Requests.Expenses;
 
-public class ResponseExpenseJson
+public class RequestExpenseJson
 {
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
