@@ -1,4 +1,4 @@
-﻿namespace FinanceManager.Communication.Responses.Incomes;
+﻿namespace FinanceManager.Communication.Responses.Incomes.GetAll;
 
 public class ResponseIncomesJson
 {

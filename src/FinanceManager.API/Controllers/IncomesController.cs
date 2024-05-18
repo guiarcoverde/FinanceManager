@@ -6,6 +6,7 @@ using FinanceManager.Application.UseCases.Incomes.Update;
 using FinanceManager.Communication.Requests.Incomes;
 using FinanceManager.Communication.Responses;
 using FinanceManager.Communication.Responses.Incomes;
+using FinanceManager.Communication.Responses.Incomes.GetAll;
 using FinanceManager.Communication.Responses.Incomes.GetIncomeById;
 using FinanceManager.Communication.Responses.Incomes.Register;
 using Microsoft.AspNetCore.Mvc;

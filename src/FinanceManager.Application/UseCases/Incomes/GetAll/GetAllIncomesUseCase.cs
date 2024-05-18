@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FinanceManager.Communication.Responses.Incomes;
+using FinanceManager.Communication.Responses.Incomes.GetAll;
 using FinanceManager.Domain.Repositories.Incomes;
 
 namespace FinanceManager.Application.UseCases.Incomes.GetAll;
