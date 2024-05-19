@@ -10,6 +10,7 @@ using FinanceManager.Application.UseCases.Incomes.GetAll;
 using FinanceManager.Application.UseCases.Incomes.GetById;
 using FinanceManager.Application.UseCases.Incomes.Register;
 using FinanceManager.Application.UseCases.Incomes.Update;
+using FinanceManager.Application.UseCases.Users.Register;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FinanceManager.Application;
@@ -52,5 +53,10 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetIncomeByIdUseCase, GetByIdUseCase>();
         services.AddScoped<IDeleteIncomeUseCase, DeleteIncomeUseCase>();
         services.AddScoped<IUpdateIncomeUseCase, UpdateIncomeUseCase>();
+        
+        /*
+         * User use cases
+         */
+        services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
     }
 }

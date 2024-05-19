@@ -17,6 +17,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -28,6 +29,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<CultureMiddleware>();
+
 
 app.UseHttpsRedirection();
 

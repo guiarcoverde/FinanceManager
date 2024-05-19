@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FinanceManager.Communication.Responses.Incomes;
 using FinanceManager.Communication.Responses.Incomes.GetAll;
 using FinanceManager.Domain.Repositories.Incomes;
 
@@ -13,10 +12,9 @@ public class GetAllIncomesUseCase(IIncomeReadOnlyRepository repository, IMapper 
     public async Task<ResponseIncomesJson> Execute()
     {
         var result = await _repository.GetAll();
-
-        return new ResponseIncomesJson()
+        return new ResponseIncomesJson
         {
-            Incomes = _mapper.Map<List<ResponseShortIncome>>(result)
+            Incomes = _mapper.Map<List<ResponseShortIncomesJson>>(result)
         };
     }
 }

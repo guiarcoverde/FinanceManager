@@ -69,6 +69,15 @@ namespace FinanceManager.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The email is necessary for user registration..
+        /// </summary>
+        public static string EMAIL_REQUIRED {
+            get {
+                return ResourceManager.GetString("EMAIL_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expense not found..
         /// </summary>
         public static string EXPENSE_NOT_FOUND {
@@ -110,6 +119,24 @@ namespace FinanceManager.Exceptions {
         public static string INVALID_SOURCE {
             get {
                 return ResourceManager.GetString("INVALID_SOURCE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is necessary to provide the username..
+        /// </summary>
+        public static string LOGIN_REQUIRED {
+            get {
+                return ResourceManager.GetString("LOGIN_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is necessary to provide the password..
+        /// </summary>
+        public static string PASSWORD_REQUIRED {
+            get {
+                return ResourceManager.GetString("PASSWORD_REQUIRED", resourceCulture);
             }
         }
         

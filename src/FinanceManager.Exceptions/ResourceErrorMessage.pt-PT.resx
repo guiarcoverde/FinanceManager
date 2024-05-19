@@ -141,4 +141,13 @@
   <data name="INCOME_NOT_FOUND" xml:space="preserve">
     <value>Rendimento não encontrado.</value>
   </data>
+  <data name="LOGIN_REQUIRED" xml:space="preserve">
+    <value>O nome de usuário é necessário para o registro.</value>
+  </data>
+  <data name="EMAIL_REQUIRED" xml:space="preserve">
+    <value>O email é necessário para o registo do utilizador.</value>
+  </data>
+  <data name="PASSWORD_REQUIRED" xml:space="preserve">
+    <value>A senha é necessária para o registo do utilizador.</value>
+  </data>
 </root>
