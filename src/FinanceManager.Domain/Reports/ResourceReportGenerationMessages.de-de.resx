@@ -26,4 +26,10 @@
     <data name="PAYMENT_TYPE" xml:space="preserve">
         <value>Zahlungsart</value>
     </data>
+    <data name="EXPENSES_FOR" xml:space="preserve">
+        <value>Ausgaben für</value>
+    </data>
+    <data name="TOTAL_SPENT_IN" xml:space="preserve">
+        <value>Total ausgegeben in {0}</value>
+    </data>
 </root>

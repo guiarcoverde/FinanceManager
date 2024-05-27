@@ -3,7 +3,8 @@ using FinanceManager.Application.UseCases.Expenses.Delete;
 using FinanceManager.Application.UseCases.Expenses.GetAll;
 using FinanceManager.Application.UseCases.Expenses.GetById;
 using FinanceManager.Application.UseCases.Expenses.Register;
-using FinanceManager.Application.UseCases.Expenses.Reports;
+using FinanceManager.Application.UseCases.Expenses.Reports.Excel;
+using FinanceManager.Application.UseCases.Expenses.Reports.Pdf;
 using FinanceManager.Application.UseCases.Expenses.Update;
 using FinanceManager.Application.UseCases.Incomes.Delete;
 using FinanceManager.Application.UseCases.Incomes.GetAll;
@@ -44,6 +45,7 @@ public static class DependencyInjectionExtension
          * Report Generation use cases
          */
         services.AddScoped<IGenerateExpensesReportExcelUseCase, GenerateExpensesReportExcelUseCase>();
+        services.AddScoped<IGenerateExpensesReportPdfUseCase, GenerateExpensesReportPdfUseCase>();
         
         /*
          * Incomes use cases

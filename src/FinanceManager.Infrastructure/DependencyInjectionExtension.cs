@@ -36,9 +36,12 @@ public static class DependencyInjectionExtension
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
-
-        var pgDevConnectionString = configuration.GetConnectionString("PgConnectionDev");
-        services.AddDbContext<FinanceManagerDbContext>(config => config.UseNpgsql(pgDevConnectionString));
+        var mySqlConnectionString = configuration.GetConnectionString("MySqlConnection");
+        // var pgDevConnectionString = configuration.GetConnectionString("PgConnectionDev");
+        var version = new Version(8, 0, 37);
+        var serverVersion = new MySqlServerVersion(version);
+        
+        services.AddDbContext<FinanceManagerDbContext>(config => config.UseMySql(mySqlConnectionString, serverVersion));
 
     }
     
