@@ -1,9 +1,9 @@
-﻿using FinanceManager.Communication.Requests.Users;
-using FinanceManager.Communication.Responses.Users;
+﻿using FinanceManager.Communication.Requests;
+using FinanceManager.Communication.Responses;
 
 namespace FinanceManager.Application.UseCases.Users.Register;
 
 public interface IRegisterUserUseCase
 {
-    public Task<ResponseRegisterUserJson> Execute(RequestRegisterUserJson request);
+    Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request);
 }

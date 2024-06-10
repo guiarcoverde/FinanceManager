@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
+using FinanceManager.Communication.Requests;
 using FinanceManager.Communication.Requests.Expenses;
 using FinanceManager.Communication.Requests.Incomes;
-using FinanceManager.Communication.Requests.Users;
 using FinanceManager.Communication.Responses.Expenses.GetAll;
 using FinanceManager.Communication.Responses.Expenses.GetExpenseById;
 using FinanceManager.Communication.Responses.Expenses.Register;
 using FinanceManager.Communication.Responses.Incomes.GetAll;
 using FinanceManager.Communication.Responses.Incomes.Register;
-using FinanceManager.Communication.Responses.Users;
 using FinanceManager.Domain.Entities;
 
 namespace FinanceManager.Application.AutoMapper;
@@ -24,7 +23,8 @@ public class AutoMapping : Profile
     {
         CreateMap<RequestExpenseJson, Expense>();
         CreateMap<RequestIncomeRegistrationJson, Income>();
-        CreateMap<RequestRegisterUserJson, User>();
+        CreateMap<RequestRegisterUserJson, User>()
+            .ForMember(dest => dest.Password, config => config.Ignore());
     }
 
     private void EntityToResponse()
@@ -35,6 +35,5 @@ public class AutoMapping : Profile
         CreateMap<Income, ResponseRegisterIncomeJson>();
         CreateMap<Income, ResponseShortIncomesJson>();
         CreateMap<Income, ResponseIncomesJson>();
-        CreateMap<User, ResponseRegisterUserJson>();
     }
 }

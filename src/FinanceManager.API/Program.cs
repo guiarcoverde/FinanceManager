@@ -2,6 +2,8 @@ using FinanceManager.API.Filters;
 using FinanceManager.API.Middleware;
 using FinanceManager.Application;
 using FinanceManager.Infrastructure;
+using FinanceManager.Infrastructure.DataAccess;
+using FinanceManager.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,4 +39,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+await MigrateDatabse();
+
 app.Run();
+
+async Task MigrateDatabse()
+{
+    await using var scope = app.Services.CreateAsyncScope();
+
+    await DatabaseMigrations.MigrateDatabase(scope.ServiceProvider);
+    
+}

@@ -55,10 +55,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetIncomeByIdUseCase, GetByIdUseCase>();
         services.AddScoped<IDeleteIncomeUseCase, DeleteIncomeUseCase>();
         services.AddScoped<IUpdateIncomeUseCase, UpdateIncomeUseCase>();
-        
-        /*
-         * User use cases
-         */
+
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
     }
 }

@@ -2,6 +2,7 @@
 using FinanceManager.Domain.Repositories.Expenses;
 using FinanceManager.Domain.Repositories.Incomes;
 using FinanceManager.Domain.Repositories.Users;
+using FinanceManager.Domain.Security.Cryptography;
 using FinanceManager.Infrastructure.DataAccess;
 using FinanceManager.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,8 @@ public static class DependencyInjectionExtension
     {
         AddDbContext(services, configuration);
         AddRepositories(services);
-        
+
+        services.AddScoped<IPasswordEncryptor, Security.BCrypt>();
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -30,14 +32,14 @@ public static class DependencyInjectionExtension
         services.AddScoped<IIncomeWriteOnlyRepository, IncomesRepository>();
         services.AddScoped<IIncomeReadOnlyRepository, IncomesRepository>();
         services.AddScoped<IIncomeUpdateOnlyRepository, IncomesRepository>();
-        
-        services.AddScoped<IUserWriteOnlyRepository, UsersRepository>();
+
+        services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
         var mySqlConnectionString = configuration.GetConnectionString("MySqlConnection");
-        // var pgDevConnectionString = configuration.GetConnectionString("PgConnectionDev");
         var version = new Version(8, 0, 37);
         var serverVersion = new MySqlServerVersion(version);
         

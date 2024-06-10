@@ -4,5 +4,5 @@ namespace FinanceManager.Domain.Repositories.Users;
 
 public interface IUserWriteOnlyRepository
 {
-    public Task Add(User user);
+    Task Add(User user);
 }
