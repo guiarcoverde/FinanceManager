@@ -5,11 +5,12 @@ using FinanceManager.Domain.Entities;
 using FinanceManager.Domain.Repositories;
 using FinanceManager.Domain.Repositories.Users;
 using FinanceManager.Domain.Security.Cryptography;
+using FinanceManager.Domain.Security.Tokens;
 using FinanceManager.Exceptions.ExceptionsBase;
 using FluentValidation.Results;
 
 namespace FinanceManager.Application.UseCases.Users.Register;
-public class RegisterUserUseCase(IMapper mapper, IPasswordEncryptor passwordEncryptor, IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository,IUnityOfWork unityOfWork) : IRegisterUserUseCase
+public class RegisterUserUseCase(IMapper mapper, IPasswordEncryptor passwordEncryptor, IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository,IUnityOfWork unityOfWork, IAccessTokenGenerator tokenGenerator) : IRegisterUserUseCase
 {
 
     private readonly IPasswordEncryptor _passwordEncryptor = passwordEncryptor;
@@ -17,6 +18,7 @@ public class RegisterUserUseCase(IMapper mapper, IPasswordEncryptor passwordEncr
     private readonly IUserReadOnlyRepository _userReadOnlyRepository = userReadOnlyRepository;
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
     private readonly IUserWriteOnlyRepository _userWriteOnlyRepository = userWriteOnlyRepository;
+    private readonly IAccessTokenGenerator _tokenGenerator = tokenGenerator;
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
@@ -32,7 +34,8 @@ public class RegisterUserUseCase(IMapper mapper, IPasswordEncryptor passwordEncr
 
         return new ResponseRegisteredUserJson()
         {
-            Name = user.Name
+            Name = user.Name,
+            Token = _tokenGenerator.Generate(user)
         };
     }
 

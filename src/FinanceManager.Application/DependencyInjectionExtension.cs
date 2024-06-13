@@ -11,6 +11,7 @@ using FinanceManager.Application.UseCases.Incomes.GetAll;
 using FinanceManager.Application.UseCases.Incomes.GetById;
 using FinanceManager.Application.UseCases.Incomes.Register;
 using FinanceManager.Application.UseCases.Incomes.Update;
+using FinanceManager.Application.UseCases.Login.DoLogin;
 using FinanceManager.Application.UseCases.Users.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -57,5 +58,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUpdateIncomeUseCase, UpdateIncomeUseCase>();
 
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+        services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
     }
+
+
 }

@@ -17,4 +17,7 @@ internal class UserRepository(FinanceManagerDbContext dbContext) : IUserReadOnly
        return await _dbContext.Users.AnyAsync(user => user.Email.Equals(email));
     }
 
+    public async Task<User?> GetUserByEmail(string email) =>
+        await _dbContext.Users.AsNoTracking()
+            .FirstOrDefaultAsync(user => user.Email.Equals(email));
 }

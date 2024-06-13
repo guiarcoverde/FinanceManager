@@ -1,7 +1,7 @@
 ﻿using FinanceManager.Domain.Security.Cryptography;
 using BC = BCrypt.Net.BCrypt;
 
-namespace FinanceManager.Infrastructure.Security;
+namespace FinanceManager.Infrastructure.Security.Cryptography;
 internal class BCrypt : IPasswordEncryptor
 {
     public string Encrypt(string password)
@@ -10,4 +10,6 @@ internal class BCrypt : IPasswordEncryptor
 
         return passwordHash;
     }
+
+    public bool Verify(string password, string passwordHash) => BC.Verify(password, passwordHash);
 }
