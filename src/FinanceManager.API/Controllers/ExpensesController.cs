@@ -8,12 +8,14 @@ using FinanceManager.Communication.Responses;
 using FinanceManager.Communication.Responses.Expenses.GetAll;
 using FinanceManager.Communication.Responses.Expenses.GetExpenseById;
 using FinanceManager.Communication.Responses.Expenses.Register;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceManager.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
