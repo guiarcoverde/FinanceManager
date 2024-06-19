@@ -150,4 +150,16 @@
   <data name="PASSWORD_REQUIRED" xml:space="preserve">
     <value>A senha é necessária para o cadastro do usuário.</value>
   </data>
+  <data name="EMAIL_EMPTY" xml:space="preserve">
+    <value>Email não pode estar vazio.</value>
+  </data>
+  <data name="EMAIL_INVALID" xml:space="preserve">
+    <value>Email é inválido.</value>
+  </data>
+  <data name="EMAIL_IN_USE" xml:space="preserve">
+    <value>O email já está cadastrado.</value>
+  </data>
+  <data name="NAME_EMPTY" xml:space="preserve">
+    <value>O nome não pode estar vazio.</value>
+  </data>
 </root>

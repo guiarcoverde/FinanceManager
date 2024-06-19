@@ -6,6 +6,7 @@ using FinanceManager.Domain.Repositories;
 using FinanceManager.Domain.Repositories.Users;
 using FinanceManager.Domain.Security.Cryptography;
 using FinanceManager.Domain.Security.Tokens;
+using FinanceManager.Exceptions;
 using FinanceManager.Exceptions.ExceptionsBase;
 using FluentValidation.Results;
 
@@ -46,7 +47,7 @@ public class RegisterUserUseCase(IMapper mapper, IPasswordEncryptor passwordEncr
 
         if (emailExists)
         {
-            result.Errors.Add(new ValidationFailure(string.Empty, "Email already in use"));
+            result.Errors.Add(new ValidationFailure(string.Empty, ResourceErrorMessage.EMAIL_IN_USE));
         }
 
         if (result.IsValid is true) return;

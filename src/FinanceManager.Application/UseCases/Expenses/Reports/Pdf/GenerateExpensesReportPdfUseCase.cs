@@ -33,7 +33,6 @@ public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCas
         }
         
         var totalExpense = expenses.Sum(expense => expense.Amount);
-        
         var document = CreateDocument(month);
         var page = CreatePage(document);
         

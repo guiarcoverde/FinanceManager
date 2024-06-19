@@ -1,9 +1,8 @@
-﻿using FinanceManager.Application.UseCases.Expenses.Register;
-using CommonTestUtilities.Requests;
+﻿using CommonTestUtilities.Requests;
 using FinanceManager.Application.UseCases;
-using FluentAssertions;
-using FinanceManager.Exceptions;
 using FinanceManager.Communication.Enums;
+using FinanceManager.Exceptions;
+using FluentAssertions;
 
 namespace Validators.Tests.Expenses.Register;
 
