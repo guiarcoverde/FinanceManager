@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using FinanceManager.Communication.Requests;
 
-namespace CommonTestUtilities.Requests;
+namespace Common.TestUtilities.Requests;
 
 public class RequestRegisterUserJsonBuilder
 {

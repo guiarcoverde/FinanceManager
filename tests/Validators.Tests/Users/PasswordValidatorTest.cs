@@ -1,4 +1,4 @@
-﻿using CommonTestUtilities.Requests;
+﻿using Common.TestUtilities.Requests;
 using FinanceManager.Application.UseCases.Users;
 using FinanceManager.Application.UseCases.Users.Register;
 using FinanceManager.Communication.Requests;
