@@ -1,4 +1,5 @@
-﻿using FinanceManager.Domain.Repositories.Users;
+﻿using FinanceManager.Domain.Entities;
+using FinanceManager.Domain.Repositories.Users;
 using Moq;
 
 namespace Common.TestUtilities.Repositories;
@@ -16,5 +17,13 @@ public class UserReadOnlyRepositoryBuilder
     {
         _repository.Setup(userReadOnly => userReadOnly.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
     }
+
+    public UserReadOnlyRepositoryBuilder GetUserByEmail(User user)
+    {
+        _repository.Setup(userRepository => userRepository.GetUserByEmail(user.Email)).ReturnsAsync(user);
+        return this;
+    }
+
     public IUserReadOnlyRepository Build() => _repository.Object;
+
 }

@@ -151,6 +151,15 @@ namespace FinanceManager.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username and/or password is invalid..
+        /// </summary>
+        public static string INVALID_USERNAME_AND_PASSWORD {
+            get {
+                return ResourceManager.GetString("INVALID_USERNAME_AND_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It is necessary to provide the username..
         /// </summary>
         public static string LOGIN_REQUIRED {

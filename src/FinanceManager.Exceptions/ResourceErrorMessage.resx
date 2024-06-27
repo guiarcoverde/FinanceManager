@@ -162,4 +162,7 @@
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>Name cannot be empty.</value>
   </data>
+  <data name="INVALID_USERNAME_AND_PASSWORD" xml:space="preserve">
+    <value>Username and/or password is invalid.</value>
+  </data>
 </root>
