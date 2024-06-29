@@ -114,7 +114,7 @@ namespace FinanceManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("FinanceManager.Domain.Entities.Expense", b =>
