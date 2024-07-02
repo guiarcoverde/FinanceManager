@@ -6,6 +6,7 @@ using FinanceManager.Domain.Security.Cryptography;
 using FinanceManager.Domain.Security.Tokens;
 using FinanceManager.Infrastructure.DataAccess;
 using FinanceManager.Infrastructure.DataAccess.Repositories;
+using FinanceManager.Infrastructure.Extensions;
 using FinanceManager.Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,11 +18,14 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        AddDbContext(services, configuration);
+        services.AddScoped<IPasswordEncryptor, Security.Cryptography.BCrypt>();
+        
         AddToken(services, configuration);
         AddRepositories(services);
 
-        services.AddScoped<IPasswordEncryptor, Security.Cryptography.BCrypt>();
+        if (configuration.IsTestEnvironment() is false)
+            AddDbContext(services, configuration);
+
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -43,8 +47,7 @@ public static class DependencyInjectionExtension
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
         var mySqlConnectionString = configuration.GetConnectionString("MySqlConnection");
-        var version = new Version(8, 0, 37);
-        var serverVersion = new MySqlServerVersion(version);
+        var serverVersion = ServerVersion.AutoDetect(mySqlConnectionString);
         
         services.AddDbContext<FinanceManagerDbContext>(config => config.UseMySql(mySqlConnectionString, serverVersion));
 

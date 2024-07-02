@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using FinanceManager.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,7 +90,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await MigrateDatabse();
+if (builder.Configuration.IsTestEnvironment() is false)
+    await MigrateDatabse();
 
 app.Run();
 
