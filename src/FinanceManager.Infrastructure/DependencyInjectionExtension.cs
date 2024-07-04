@@ -4,10 +4,12 @@ using FinanceManager.Domain.Repositories.Incomes;
 using FinanceManager.Domain.Repositories.Users;
 using FinanceManager.Domain.Security.Cryptography;
 using FinanceManager.Domain.Security.Tokens;
+using FinanceManager.Domain.Services.LoggedUser;
 using FinanceManager.Infrastructure.DataAccess;
 using FinanceManager.Infrastructure.DataAccess.Repositories;
 using FinanceManager.Infrastructure.Extensions;
 using FinanceManager.Infrastructure.Security.Tokens;
+using FinanceManager.Infrastructure.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,7 @@ public static class DependencyInjectionExtension
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IPasswordEncryptor, Security.Cryptography.BCrypt>();
+        services.AddScoped<ILoggedUser, LoggedUser>(); 
         
         AddToken(services, configuration);
         AddRepositories(services);

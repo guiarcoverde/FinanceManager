@@ -5,29 +5,34 @@ using FinanceManager.Communication.Responses.Expenses.Register;
 using FinanceManager.Domain.Entities;
 using FinanceManager.Domain.Repositories;
 using FinanceManager.Domain.Repositories.Expenses;
+using FinanceManager.Domain.Services.LoggedUser;
 using FinanceManager.Exceptions.ExceptionsBase;
 using FluentValidation.Results;
 
 namespace FinanceManager.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnityOfWork unityOfWork, IMapper mapper) : IRegisterExpenseUseCase
+public class RegisterExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnityOfWork unityOfWork, IMapper mapper, ILoggedUser loggedUser) : IRegisterExpenseUseCase
 {
 
     private readonly IExpenseWriteOnlyRepository _repository = repository;
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
     private readonly IMapper _mapper = mapper;
+    private readonly ILoggedUser _loggedUser = loggedUser;
 
     public async Task<ResponseRegisterExpenseJson> Execute(RequestExpenseJson request)
     {
         Validate(request);
 
-        var entity = _mapper.Map<Expense>(request);
+        var loggedUser = await _loggedUser.Get();
 
-        await _repository.Add(entity);
+        var expense = _mapper.Map<Expense>(request);
+        expense.UserId = loggedUser.Id;
+
+        await _repository.Add(expense);
 
         await _unityOfWork.Commit();
 
-        return _mapper.Map<ResponseRegisterExpenseJson>(entity);
+        return _mapper.Map<ResponseRegisterExpenseJson>(expense);
     }
 
     private void Validate(RequestExpenseJson request)

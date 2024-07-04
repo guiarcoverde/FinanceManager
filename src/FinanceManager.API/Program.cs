@@ -8,6 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using FinanceManager.Infrastructure.Extensions;
+using FinanceManager.Domain.Security.Tokens;
+using FinanceManager.API.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +55,9 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+
 builder.Services.AddHttpContextAccessor();
 
 var signingKey = builder.Configuration.GetValue<string>("Settings:Jwt:SigningKey");
