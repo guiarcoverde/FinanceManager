@@ -37,7 +37,7 @@ public static class DependencyInjectionExtension
          * Expenses use cases
          */
         services.AddScoped<IRegisterExpenseUseCase, RegisterExpenseUseCase>();
-        services.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
+        services.AddScoped<IGetAllExpensesUseCase, GetAllExpenses>();
         services.AddScoped<IGetExpenseByIdUseCase, GetExpenseByIdUseCase>();
         services.AddScoped<IDeleteExpenseUseCase, DeleteExpenseUseCase>();
         services.AddScoped<IUpdateExpenseUseCase, UpdateExpenseUseCase>();
