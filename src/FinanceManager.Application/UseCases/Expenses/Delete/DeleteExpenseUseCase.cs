@@ -1,24 +1,27 @@
 ﻿using FinanceManager.Domain.Repositories;
 using FinanceManager.Domain.Repositories.Expenses;
+using FinanceManager.Domain.Services.LoggedUser;
 using FinanceManager.Exceptions;
 using FinanceManager.Exceptions.ExceptionsBase;
+using Microsoft.AspNetCore.Http;
 
 namespace FinanceManager.Application.UseCases.Expenses.Delete;
 
-public class DeleteExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnityOfWork unityOfWork) : IDeleteExpenseUseCase
+public class DeleteExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnityOfWork unityOfWork, ILoggedUser loggedUser, IExpenseReadOnlyRepository expenseReadOnlyRepository) : IDeleteExpenseUseCase
 {
+    private readonly IExpenseReadOnlyRepository _expenseReadOnlyRepository = expenseReadOnlyRepository;
     private readonly IExpenseWriteOnlyRepository _repository = repository;
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
+    private readonly ILoggedUser _loggedUser = loggedUser;
     
 
     public async Task Execute(long id)
     {
-        var result = await _repository.Delete(id);
+        var loggedUser = await _loggedUser.Get();
 
-        if (result is false)
-        {
-            throw new NotFoundException(ResourceErrorMessage.EXPENSE_NOT_FOUND);
-        }
+        var expense = await _expenseReadOnlyRepository.GetById(loggedUser, id) ?? throw new NotFoundException(ResourceErrorMessage.EXPENSE_NOT_FOUND);
+
+        await _repository.Delete(id);
 
         await _unityOfWork.Commit();
     }

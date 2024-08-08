@@ -4,18 +4,31 @@ using FinanceManager.Domain.Enums;
 using FinanceManager.Domain.Extensions;
 using FinanceManager.Domain.Reports;
 using FinanceManager.Domain.Repositories.Expenses;
+using FinanceManager.Domain.Services.LoggedUser;
 
 
 namespace FinanceManager.Application.UseCases.Expenses.Reports.Excel;
 
-public class GenerateExpensesReportExcelUseCase(IExpenseReadOnlyRepository repository) : IGenerateExpensesReportExcelUseCase
+public class GenerateExpensesReportExcelUseCase(IExpenseReadOnlyRepository repository, ILoggedUser loggedUser) : IGenerateExpensesReportExcelUseCase
 {
     private readonly IExpenseReadOnlyRepository _repository = repository;
+    private readonly ILoggedUser _loggedUser = loggedUser;
     private const string CurrencySymbol = "R$";
+
     public async Task<byte[]> Execute(DateOnly month)
     {
-        var expenses = await _repository.FilterByMonth(month);
+        var loggedUser = await _loggedUser.Get();
+
+        var expenses = await _repository.FilterByMonth(loggedUser, month);
+
+        if (expenses.Count == 0)
+        {
+            return [];
+        }
+
         using var workBook = new XLWorkbook();
+
+        workBook.Author = loggedUser.Name;
         
        var workSheet = workBook.Worksheets.Add(month.ToString("Y"));
        
@@ -63,6 +76,4 @@ public class GenerateExpensesReportExcelUseCase(IExpenseReadOnlyRepository repos
         
         worksheet.Cell("D1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
     }
-    
-    
 }
