@@ -1,24 +1,30 @@
-﻿using Common.TestUtilities.Requests;
+﻿using System.Globalization;
+using System.Net;
+using System.Text.Json;
+using Common.TestUtilities.Requests;
 using FinanceManager.Communication.Requests;
 using FinanceManager.Exceptions;
 using FluentAssertions;
-using System.Globalization;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text.Json;
 using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Login.DoLogin;
 
-public class DoLoginTest(CustomWebApplicationFactory webApplicationFactory) : IClassFixture<CustomWebApplicationFactory>
+public class DoLoginTest : FinanceManagerClassFixture
 {
     private const string Method = "api/login";
-    private readonly HttpClient _httpClient = webApplicationFactory.CreateClient();
-    private readonly string _email = webApplicationFactory.GetEmail();
-    private readonly string _name = webApplicationFactory.GetName();
-    private readonly string _password = webApplicationFactory.GetPassword();
+    private readonly string _email;
+    private readonly string _password;
+    private readonly string _name;
+    
+    public DoLoginTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
+    {
+        _name = webApplicationFactory.GetName();
+        _password = webApplicationFactory.GetPassword();
+        _email = webApplicationFactory.GetEmail();
+        _name = webApplicationFactory.GetName();
 
+    }
+    
     [Fact]
     public async Task Success()
     {
@@ -28,7 +34,7 @@ public class DoLoginTest(CustomWebApplicationFactory webApplicationFactory) : IC
             Password = _password
         };
 
-        var response = await _httpClient.PostAsJsonAsync(Method, request);
+        var response = await DoPost(requestUri: Method, request: request);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -46,9 +52,7 @@ public class DoLoginTest(CustomWebApplicationFactory webApplicationFactory) : IC
     {
         var request = RequestLoginJsonBuilder.Build();
         
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(culture));
-        
-        var response = await _httpClient.PostAsJsonAsync(Method, request);
+        var response = await DoPost(Method, request: request, culture: culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
 
