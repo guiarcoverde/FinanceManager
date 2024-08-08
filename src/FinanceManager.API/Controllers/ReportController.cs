@@ -1,6 +1,8 @@
 ﻿using System.Net.Mime;
 using FinanceManager.Application.UseCases.Expenses.Reports.Excel;
 using FinanceManager.Application.UseCases.Expenses.Reports.Pdf;
+using FinanceManager.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceManager.API.Controllers;
@@ -8,6 +10,7 @@ namespace FinanceManager.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles = Roles.Admin)]
 public class ReportController : ControllerBase
 {
     [HttpGet("excel")]

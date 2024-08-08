@@ -13,22 +13,18 @@ internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseR
         await _dbContext.Expenses.AddAsync(expense);
     }
 
-    public async Task<bool> Delete(long id)
+    public async Task Delete(long id)
     {
-        var result = await _dbContext.Expenses.FirstOrDefaultAsync(e => e.Id == id);
+        var result = await _dbContext.Expenses.FindAsync(id);
 
-        if (result is null)
-        {
-            return false;
-        }
-
-        _dbContext.Expenses.Remove(result);
-        return true;
+        _dbContext.Expenses.Remove(result!);
     }
 
-    public async Task<List<Expense>> GetAll() => await _dbContext.Expenses.AsNoTracking().ToListAsync();
+    public async Task<List<Expense>> GetAll(User user) => 
+        await _dbContext.Expenses.AsNoTracking().Where(e => e.UserId == user.Id).ToListAsync();
 
-    async Task<Expense?> IExpenseReadOnlyRepository.GetById(long id) => await _dbContext.Expenses.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+    async Task<Expense?> IExpenseReadOnlyRepository.GetById(User user, long id) =>
+        await _dbContext.Expenses.FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
 
     async Task<Expense?> IExpenseUpdateOnlyRepository.GetById(User user,long id) =>
         await _dbContext.Expenses.FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
@@ -37,7 +33,7 @@ internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseR
         _dbContext.Expenses.Update(expense);
     }
     
-    public async Task<List<Expense>> FilterByMonth(DateOnly date)
+    public async Task<List<Expense>> FilterByMonth(User user, DateOnly date)
     {
         var startDate = new DateTime(year: date.Year, month: date.Month, day: 1).Date;
 
@@ -47,7 +43,7 @@ internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseR
         
         return await _dbContext.Expenses
             .AsNoTracking()
-            .Where(expense => expense.Date >= startDate && expense.Date <= endDate)
+            .Where(expense => expense.UserId == user.Id && expense.Date >= startDate && expense.Date <= endDate)
             .OrderBy(expense => expense.Date)
             .ThenBy(expense => expense.Title)
             .ToListAsync();

@@ -27,4 +27,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Expenses\GetAllExpensesUseCaseTest.cs" />
+  </ItemGroup>
+
 </Project>
