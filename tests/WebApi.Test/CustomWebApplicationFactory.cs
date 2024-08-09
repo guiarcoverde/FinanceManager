@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using WebApi.Test.Resources;
 
 namespace WebApi.Test;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    private User _user;
-    private Expense _expense;
-    private string _password;
-    private string _token;
+    public ExpenseIdentityManager Expense { get; private set; } = default!;
+    public UserIdentityManager UserTeamMember { get; private set; } = default!;
+    public UserIdentityManager UserAdmin { get; private set; } = default!;
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Test")
@@ -31,40 +31,48 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 var scope = services.BuildServiceProvider().CreateScope();
                 var dbContext = scope.ServiceProvider.GetRequiredService<FinanceManagerDbContext>();
                 var passwordEncryptor = scope.ServiceProvider.GetRequiredService<IPasswordEncryptor>();
+                var accessTokenGenerator = scope.ServiceProvider.GetRequiredService<IAccessTokenGenerator>();
 
-                StartDatabase(dbContext, passwordEncryptor);
+                StartDatabase(dbContext, passwordEncryptor, accessTokenGenerator);
 
-                var tokenGenerator = scope.ServiceProvider.GetRequiredService<IAccessTokenGenerator>();
-                _token = tokenGenerator.Generate(_user);
+
             });
     }
-    public string GetName() => _user.Name;
-    public string GetEmail() => _user.Email;
-    public string GetPassword() => _password;
-    public string GetToken() => _token;
-    public long GetExpenseId() => _expense.Id;
-    private void StartDatabase(FinanceManagerDbContext dbContext, IPasswordEncryptor passwordEncryptor)
+    
+    private void StartDatabase(
+        FinanceManagerDbContext dbContext, 
+        IPasswordEncryptor passwordEncryptor, 
+        IAccessTokenGenerator accessTokenGenerator)
     {
-        AddUsers(dbContext, passwordEncryptor);
-        AddExpenses(dbContext, _user);
+        var user = AddUserTeamMember(dbContext, passwordEncryptor, accessTokenGenerator);
+        AddExpenses(dbContext, user);
 
         dbContext.SaveChanges();
     }
 
-    private void AddUsers(FinanceManagerDbContext dbContext, IPasswordEncryptor passwordEncryptor)
+    private User AddUserTeamMember(FinanceManagerDbContext dbContext, 
+        IPasswordEncryptor passwordEncryptor, 
+        IAccessTokenGenerator accessTokenGenerator)
     {
-        _user = UserBuilder.Build();
-        _password = _user.Password;
+        var user = UserBuilder.Build();
+        var password = user.Password;
 
-        _user.Password = passwordEncryptor.Encrypt(_user.Password);
+        user.Password = passwordEncryptor.Encrypt(user.Password);
 
-        dbContext.Users.Add(_user);
+        dbContext.Users.Add(user);
+        var token = accessTokenGenerator.Generate(user);
+        
+        UserTeamMember = new UserIdentityManager(user, password, token);
+
+        return user;
     }
 
     private void AddExpenses(FinanceManagerDbContext dbContext, User user)
     {
-        _expense = ExpenseBuilder.Build(user);
-        dbContext.Expenses.Add(_expense);
+        var expense = ExpenseBuilder.Build(user);
+        dbContext.Expenses.Add(expense);
+
+        Expense = new ExpenseIdentityManager(expense);
     }
     
     
