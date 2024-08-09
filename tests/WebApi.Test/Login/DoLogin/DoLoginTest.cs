@@ -18,10 +18,10 @@ public class DoLoginTest : FinanceManagerClassFixture
     
     public DoLoginTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _name = webApplicationFactory.GetName();
-        _password = webApplicationFactory.GetPassword();
-        _email = webApplicationFactory.GetEmail();
-        _name = webApplicationFactory.GetName();
+        _name = webApplicationFactory.UserTeamMember.GetName();
+        _password = webApplicationFactory.UserTeamMember.GetPassword();
+        _email = webApplicationFactory.UserTeamMember.GetEmail();
+        _name = webApplicationFactory.UserTeamMember.GetName();
 
     }
     

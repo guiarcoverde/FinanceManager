@@ -6,7 +6,7 @@ using FinanceManager.Communication.Requests.Expenses;
 
 namespace Common.TestUtilities.Requests;
 
-public class RequestRegisterExpenseJsonBuilder
+public class RequestExpenseJsonBuilder
 {
     public static RequestExpenseJson Build()
     {

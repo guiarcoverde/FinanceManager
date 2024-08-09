@@ -15,14 +15,14 @@ public class RegisterExpenseTest : FinanceManagerClassFixture
     
     public RegisterExpenseTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _token = webApplicationFactory.GetToken();
+        _token = webApplicationFactory.UserTeamMember.GetToken();
     }
     
 
     [Fact]
     public async Task Success()
     {
-        var request = RequestRegisterExpenseJsonBuilder.Build();
+        var request = RequestExpenseJsonBuilder.Build();
         
         var result = await DoPost(requestUri: Method, request: request, token: _token);
         
@@ -38,7 +38,7 @@ public class RegisterExpenseTest : FinanceManagerClassFixture
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task ErrorTitleEmpty(string culture)
     {
-        var request = RequestRegisterExpenseJsonBuilder.Build();
+        var request = RequestExpenseJsonBuilder.Build();
         request.Title = string.Empty;
         
         var result = await DoPost(requestUri: Method, request: request, token: _token, culture: culture);

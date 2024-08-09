@@ -11,7 +11,7 @@ public class GetAllExpensesTest : FinanceManagerClassFixture
 
     public GetAllExpensesTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _token = webApplicationFactory.GetToken();
+        _token = webApplicationFactory.UserTeamMember.GetToken();
     }
 
     [Fact]
