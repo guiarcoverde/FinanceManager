@@ -17,7 +17,7 @@ public class GetExpenseByIdTest : FinanceManagerClassFixture
     public GetExpenseByIdTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
         _token = webApplicationFactory.UserTeamMember.GetToken();
-        _expenseId = webApplicationFactory.Expense.GetId();
+        _expenseId = webApplicationFactory.ExpenseMemberTeam.GetId();
     }
 
     [Fact]

@@ -1,5 +1,6 @@
 ﻿using Common.TestUtilities.Entities;
 using FinanceManager.Domain.Entities;
+using FinanceManager.Domain.Enums;
 using FinanceManager.Domain.Security.Cryptography;
 using FinanceManager.Domain.Security.Tokens;
 using FinanceManager.Infrastructure.DataAccess;
@@ -13,7 +14,8 @@ namespace WebApi.Test;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    public ExpenseIdentityManager Expense { get; private set; } = default!;
+    public ExpenseIdentityManager ExpenseMemberTeam { get; private set; } = default!;
+    public ExpenseIdentityManager ExpenseAdmin { get; private set; } = default!;
     public UserIdentityManager UserTeamMember { get; private set; } = default!;
     public UserIdentityManager UserAdmin { get; private set; } = default!;
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -44,9 +46,14 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         IPasswordEncryptor passwordEncryptor, 
         IAccessTokenGenerator accessTokenGenerator)
     {
-        var user = AddUserTeamMember(dbContext, passwordEncryptor, accessTokenGenerator);
-        AddExpenses(dbContext, user);
-
+        var userTeamMember = AddUserTeamMember(dbContext, passwordEncryptor, accessTokenGenerator);
+        var expenseTeamMember = AddExpenses(dbContext, userTeamMember, expenseId: 1);
+        ExpenseMemberTeam = new ExpenseIdentityManager(expenseTeamMember);
+        
+        var userAdmin = AddUserAdmin(dbContext, passwordEncryptor, accessTokenGenerator);
+        var expenseAdmin = AddExpenses(dbContext, userAdmin, expenseId: 2);
+        ExpenseAdmin = new ExpenseIdentityManager(expenseAdmin);
+        
         dbContext.SaveChanges();
     }
 
@@ -55,6 +62,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         IAccessTokenGenerator accessTokenGenerator)
     {
         var user = UserBuilder.Build();
+        user.Id = 1;
         var password = user.Password;
 
         user.Password = passwordEncryptor.Encrypt(user.Password);
@@ -66,13 +74,34 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
         return user;
     }
+    
+    private User AddUserAdmin(FinanceManagerDbContext dbContext, 
+        IPasswordEncryptor passwordEncryptor, 
+        IAccessTokenGenerator accessTokenGenerator)
+    {
+        var user = UserBuilder.Build(Roles.Admin);
+        user.Id = 2;
+        var password = user.Password;
 
-    private void AddExpenses(FinanceManagerDbContext dbContext, User user)
+        user.Password = passwordEncryptor.Encrypt(user.Password);
+        
+
+        dbContext.Users.Add(user);
+        var token = accessTokenGenerator.Generate(user);
+        
+        UserAdmin = new UserIdentityManager(user, password, token);
+
+        return user;
+    }
+
+
+    private Expense AddExpenses(FinanceManagerDbContext dbContext, User user, long expenseId)
     {
         var expense = ExpenseBuilder.Build(user);
+        expense.Id = expenseId;
         dbContext.Expenses.Add(expense);
 
-        Expense = new ExpenseIdentityManager(expense);
+        return expense;
     }
     
     
