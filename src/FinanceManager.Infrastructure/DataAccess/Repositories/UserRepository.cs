@@ -28,4 +28,10 @@ internal class UserRepository(FinanceManagerDbContext dbContext) : IUserReadOnly
     {
         _dbContext.Users.Update(user);
     }
+
+    public async Task Delete(User user)
+    {
+        var userToRemove = await _dbContext.Users.FindAsync(user.Id);
+        _dbContext.Users.Remove(userToRemove!);
+    }
 }

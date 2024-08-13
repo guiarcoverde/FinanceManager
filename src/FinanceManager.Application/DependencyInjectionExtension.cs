@@ -13,6 +13,7 @@ using FinanceManager.Application.UseCases.Incomes.Register;
 using FinanceManager.Application.UseCases.Incomes.Update;
 using FinanceManager.Application.UseCases.Login.DoLogin;
 using FinanceManager.Application.UseCases.Users.ChangePassword;
+using FinanceManager.Application.UseCases.Users.Delete;
 using FinanceManager.Application.UseCases.Users.Profile.Get;
 using FinanceManager.Application.UseCases.Users.Register;
 using FinanceManager.Application.UseCases.Users.Update;
@@ -68,6 +69,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
+        services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
     }
 
 
