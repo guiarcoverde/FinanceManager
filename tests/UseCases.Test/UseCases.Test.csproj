@@ -31,4 +31,8 @@
     <Compile Remove="Expenses\GetAllExpensesUseCaseTest.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\Delete\" />
+  </ItemGroup>
+
 </Project>
