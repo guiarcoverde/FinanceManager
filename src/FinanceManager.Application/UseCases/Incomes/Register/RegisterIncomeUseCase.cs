@@ -9,10 +9,10 @@ using FinanceManager.Exceptions.ExceptionsBase;
 namespace FinanceManager.Application.UseCases.Incomes.Register;
 
 
-public class RegisterIncomeUseCase(IIncomeWriteOnlyRepository repository, IUnityOfWork unityOfWork, IMapper mapper) : IRegisterIncomeUseCase
+public class RegisterIncomeUseCase(IIncomeWriteOnlyRepository repository, IUnitOfWork unitOfWork, IMapper mapper) : IRegisterIncomeUseCase
 {
     private readonly IIncomeWriteOnlyRepository _repository = repository;
-    private readonly IUnityOfWork _unityOfWork = unityOfWork;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IMapper _mapper = mapper;
     
     
@@ -24,7 +24,7 @@ public class RegisterIncomeUseCase(IIncomeWriteOnlyRepository repository, IUnity
         
         await _repository.Add(entity);
         
-        await _unityOfWork.Commit();
+        await _unitOfWork.Commit();
         
         return _mapper.Map<ResponseRegisterIncomeJson>(entity);
 

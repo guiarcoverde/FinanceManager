@@ -38,4 +38,8 @@
     <EmbeddedResource Include="UseCases\Expenses\Reports\Pdf\Fonts\WorkSans-Regular.ttf" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Users\Profile\" />
+  </ItemGroup>
+
 </Project>

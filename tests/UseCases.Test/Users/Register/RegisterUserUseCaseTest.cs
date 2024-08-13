@@ -58,7 +58,7 @@ public class RegisterUserUseCaseTest
     private RegisterUserUseCase CreateUseCase(string? email = null)
     {
         var mapper = MapperBuilder.Build();
-        var unitOfWork = UnityOfWorkBuilder.Build();
+        var unitOfWork = UnitOfWorkBuilder.Build();
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
         var passwordEncripter = new PasswordEncripterBuilder().Build();
         var jwtTokenGenerator = JwtTokenGeneratorBuilder.Build();

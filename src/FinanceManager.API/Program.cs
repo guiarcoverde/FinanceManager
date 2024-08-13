@@ -1,15 +1,15 @@
+using System.Text;
 using FinanceManager.API.Filters;
 using FinanceManager.API.Middleware;
+using FinanceManager.API.Token;
 using FinanceManager.Application;
+using FinanceManager.Domain.Security.Tokens;
 using FinanceManager.Infrastructure;
+using FinanceManager.Infrastructure.Extensions;
 using FinanceManager.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
-using FinanceManager.Infrastructure.Extensions;
-using FinanceManager.Domain.Security.Tokens;
-using FinanceManager.API.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -107,4 +107,7 @@ async Task MigrateDatabse()
     await DatabaseMigrations.MigrateDatabase(scope.ServiceProvider);
 }
 
-public partial class Program { }
+namespace FinanceManager.API
+{
+    public partial class Program { }
+}

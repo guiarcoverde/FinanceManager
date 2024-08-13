@@ -165,4 +165,16 @@
   <data name="INVALID_USERNAME_AND_PASSWORD" xml:space="preserve">
     <value>Usuário e/ou senha inválidos.</value>
   </data>
+  <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+    <value>O email já está registrado.</value>
+  </data>
+  <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
+    <value>A senha inserida é diferente da atual</value>
+  </data>
+  <data name="PASSWORD_INVALID" xml:space="preserve">
+    <value>A senha é inválida.</value>
+  </data>
+  <data name="INVALID_PASSWORD" xml:space="preserve">
+    <value>A senha é inválida</value>
+  </data>
 </root>

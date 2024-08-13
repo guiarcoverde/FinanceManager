@@ -2,7 +2,7 @@
 
 namespace FinanceManager.Infrastructure.DataAccess;
 
-internal class UnitOfWork(FinanceManagerDbContext dbContext) : IUnityOfWork
+internal class UnitOfWork(FinanceManagerDbContext dbContext) : IUnitOfWork
 {
     public async Task Commit() => await dbContext.SaveChangesAsync();
 }

@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace FinanceManager.Application.UseCases.Expenses.Delete;
 
-public class DeleteExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnityOfWork unityOfWork, ILoggedUser loggedUser, IExpenseReadOnlyRepository expenseReadOnlyRepository) : IDeleteExpenseUseCase
+public class DeleteExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnitOfWork unitOfWork, ILoggedUser loggedUser, IExpenseReadOnlyRepository expenseReadOnlyRepository) : IDeleteExpenseUseCase
 {
     private readonly IExpenseReadOnlyRepository _expenseReadOnlyRepository = expenseReadOnlyRepository;
     private readonly IExpenseWriteOnlyRepository _repository = repository;
-    private readonly IUnityOfWork _unityOfWork = unityOfWork;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly ILoggedUser _loggedUser = loggedUser;
     
 
@@ -23,6 +23,6 @@ public class DeleteExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnity
 
         await _repository.Delete(id);
 
-        await _unityOfWork.Commit();
+        await _unitOfWork.Commit();
     }
 }

@@ -7,6 +7,7 @@ using FinanceManager.Communication.Responses.Expenses.GetExpenseById;
 using FinanceManager.Communication.Responses.Expenses.Register;
 using FinanceManager.Communication.Responses.Incomes.GetAll;
 using FinanceManager.Communication.Responses.Incomes.Register;
+using FinanceManager.Communication.Responses.Users;
 using FinanceManager.Domain.Entities;
 
 namespace FinanceManager.Application.AutoMapper;
@@ -35,5 +36,6 @@ public class AutoMapping : Profile
         CreateMap<Income, ResponseRegisterIncomeJson>();
         CreateMap<Income, ResponseShortIncomesJson>();
         CreateMap<Income, ResponseIncomesJson>();
+        CreateMap<User, ResponseUserProfileJson>();
     }
 }

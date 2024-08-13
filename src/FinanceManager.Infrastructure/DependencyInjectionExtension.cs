@@ -33,7 +33,7 @@ public static class DependencyInjectionExtension
 
     private static void AddRepositories(IServiceCollection services)
     {
-        services.AddScoped<IUnityOfWork, UnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         services.AddScoped<IExpenseReadOnlyRepository, ExpensesRepository>();
         services.AddScoped<IExpenseWriteOnlyRepository, ExpensesRepository>();
@@ -45,6 +45,7 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+        services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)

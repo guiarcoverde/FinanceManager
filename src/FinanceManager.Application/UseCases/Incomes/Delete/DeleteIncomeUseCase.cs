@@ -5,10 +5,10 @@ using FinanceManager.Exceptions.ExceptionsBase;
 
 namespace FinanceManager.Application.UseCases.Incomes.Delete;
 
-public class DeleteIncomeUseCase(IIncomeWriteOnlyRepository repository, IUnityOfWork unityOfWork) : IDeleteIncomeUseCase
+public class DeleteIncomeUseCase(IIncomeWriteOnlyRepository repository, IUnitOfWork unitOfWork) : IDeleteIncomeUseCase
 {
     private readonly IIncomeWriteOnlyRepository _repository = repository;
-    private readonly IUnityOfWork _unityOfWork = unityOfWork;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
     
     public async Task Execute(long id)
     {
@@ -19,6 +19,6 @@ public class DeleteIncomeUseCase(IIncomeWriteOnlyRepository repository, IUnityOf
             throw new NotFoundException(ResourceErrorMessage.INCOME_NOT_FOUND);
         }
 
-        await _unityOfWork.Commit();
+        await _unitOfWork.Commit();
     }
 }

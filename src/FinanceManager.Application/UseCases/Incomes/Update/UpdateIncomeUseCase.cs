@@ -7,10 +7,10 @@ using FinanceManager.Exceptions.ExceptionsBase;
 
 namespace FinanceManager.Application.UseCases.Incomes.Update;
 
-public class UpdateIncomeUseCase(IIncomeUpdateOnlyRepository repository, IUnityOfWork unityOfWork, IMapper mapper) : IUpdateIncomeUseCase
+public class UpdateIncomeUseCase(IIncomeUpdateOnlyRepository repository, IUnitOfWork unitOfWork, IMapper mapper) : IUpdateIncomeUseCase
 {
     private readonly IIncomeUpdateOnlyRepository _repository = repository;
-    private readonly IUnityOfWork _unityOfWork = unityOfWork;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IMapper _mapper = mapper;
     
     public async Task Execute(long id, RequestIncomeUpdateJson request)
@@ -26,7 +26,7 @@ public class UpdateIncomeUseCase(IIncomeUpdateOnlyRepository repository, IUnityO
 
         _mapper.Map(request, income);
         _repository.Update(income);
-        await _unityOfWork.Commit();
+        await _unitOfWork.Commit();
     }
     
     private void Validate(RequestIncomeUpdateJson request)

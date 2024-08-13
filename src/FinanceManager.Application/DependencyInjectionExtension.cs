@@ -12,7 +12,10 @@ using FinanceManager.Application.UseCases.Incomes.GetById;
 using FinanceManager.Application.UseCases.Incomes.Register;
 using FinanceManager.Application.UseCases.Incomes.Update;
 using FinanceManager.Application.UseCases.Login.DoLogin;
+using FinanceManager.Application.UseCases.Users.ChangePassword;
+using FinanceManager.Application.UseCases.Users.Profile.Get;
 using FinanceManager.Application.UseCases.Users.Register;
+using FinanceManager.Application.UseCases.Users.Update;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FinanceManager.Application;
@@ -56,9 +59,15 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetIncomeByIdUseCase, GetByIdUseCase>();
         services.AddScoped<IDeleteIncomeUseCase, DeleteIncomeUseCase>();
         services.AddScoped<IUpdateIncomeUseCase, UpdateIncomeUseCase>();
-
+        
+        /*
+         * User use cases
+         */
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
+        services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+        services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
+        services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
     }
 
 

@@ -1,5 +1,5 @@
 ﻿namespace FinanceManager.Domain.Repositories;
-public interface IUnityOfWork
+public interface IUnitOfWork
 {
     Task Commit();
 }

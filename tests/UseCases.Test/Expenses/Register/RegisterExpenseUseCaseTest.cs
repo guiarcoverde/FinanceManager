@@ -49,7 +49,7 @@ public class RegisterExpenseUseCaseTest
     {
         var repository = ExpensesWriteOnlyRepositoryBuilder.Build();
         var mapper = MapperBuilder.Build();
-        var unitOfWork = UnityOfWorkBuilder.Build();
+        var unitOfWork = UnitOfWorkBuilder.Build();
         var loggedUser = LoggedUserBuild.Build(user);
 
         return new RegisterExpenseUseCase(repository, unitOfWork, mapper, loggedUser);

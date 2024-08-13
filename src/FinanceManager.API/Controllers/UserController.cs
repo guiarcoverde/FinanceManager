@@ -1,7 +1,12 @@
-﻿using FinanceManager.Application.UseCases.Users.Register;
+﻿using FinanceManager.Application.UseCases.Users.ChangePassword;
+using FinanceManager.Application.UseCases.Users.Profile.Get;
+using FinanceManager.Application.UseCases.Users.Register;
+using FinanceManager.Application.UseCases.Users.Update;
 using FinanceManager.Communication.Requests;
+using FinanceManager.Communication.Requests.Users;
 using FinanceManager.Communication.Responses;
-using Microsoft.AspNetCore.Http;
+using FinanceManager.Communication.Responses.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceManager.API.Controllers;
@@ -17,4 +22,36 @@ public class UserController : ControllerBase
         var response = await useCase.Execute(request);
         return Created("", response);
     }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseUserProfileJson), StatusCodes.Status200OK)]
+    [Authorize]
+    public async Task<IActionResult> GetProfile([FromServices] IGetUserProfileUseCase useCase)
+    {
+        var response = await useCase.Execute();
+        return Ok(response);
+    }
+
+    [HttpPut]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateProfile([FromServices] IUpdateUserUseCase useCase,
+        [FromBody] RequestUpdateUserJson request)
+    {
+        await useCase.Execute(request);
+        return NoContent();
+    }
+    
+    [HttpPut("change-password")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ChangePassword([FromServices] IChangePasswordUseCase useCase,
+        [FromBody] RequestChangePasswordJson request)
+    {
+        await useCase.Execute(request);
+        return NoContent();
+    }
+    
 }

@@ -69,7 +69,7 @@ public class UpdateExpenseUseCaseTest
     {
         var repository = new ExpensesUpdateOnlyRepositoryBuilder().GetById(user, expense).Build();
         var mapper = MapperBuilder.Build();
-        var unitOfWork = UnityOfWorkBuilder.Build();
+        var unitOfWork = UnitOfWorkBuilder.Build();
         var loggedUser = LoggedUserBuild.Build(user);
 
         return new UpdateExpenseUseCase(mapper, unitOfWork, repository, loggedUser);

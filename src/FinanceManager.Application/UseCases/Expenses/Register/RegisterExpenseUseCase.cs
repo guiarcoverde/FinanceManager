@@ -11,11 +11,11 @@ using FluentValidation.Results;
 
 namespace FinanceManager.Application.UseCases.Expenses.Register;
 
-public class RegisterExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnityOfWork unityOfWork, IMapper mapper, ILoggedUser loggedUser) : IRegisterExpenseUseCase
+public class RegisterExpenseUseCase(IExpenseWriteOnlyRepository repository, IUnitOfWork unitOfWork, IMapper mapper, ILoggedUser loggedUser) : IRegisterExpenseUseCase
 {
 
     private readonly IExpenseWriteOnlyRepository _repository = repository;
-    private readonly IUnityOfWork _unityOfWork = unityOfWork;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IMapper _mapper = mapper;
     private readonly ILoggedUser _loggedUser = loggedUser;
 
@@ -30,7 +30,7 @@ public class RegisterExpenseUseCase(IExpenseWriteOnlyRepository repository, IUni
 
         await _repository.Add(expense);
 
-        await _unityOfWork.Commit();
+        await _unitOfWork.Commit();
 
         return _mapper.Map<ResponseRegisterExpenseJson>(expense);
     }

@@ -8,10 +8,10 @@ using FinanceManager.Exceptions.ExceptionsBase;
 
 namespace FinanceManager.Application.UseCases.Expenses.Update;
 
-public class UpdateExpenseUseCase(IMapper mapper, IUnityOfWork unityOfWork, IExpenseUpdateOnlyRepository repository, ILoggedUser loggedUser) : IUpdateExpenseUseCase
+public class UpdateExpenseUseCase(IMapper mapper, IUnitOfWork unitOfWork, IExpenseUpdateOnlyRepository repository, ILoggedUser loggedUser) : IUpdateExpenseUseCase
 {
     private readonly IMapper _mapper = mapper;
-    private readonly IUnityOfWork _unityOfWork = unityOfWork;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IExpenseUpdateOnlyRepository _repository = repository;
     private readonly ILoggedUser _loggedUser = loggedUser;
 
@@ -32,7 +32,7 @@ public class UpdateExpenseUseCase(IMapper mapper, IUnityOfWork unityOfWork, IExp
         _mapper.Map(request, expense);
         
         _repository.Update(expense);
-        await _unityOfWork.Commit();
+        await _unitOfWork.Commit();
     }
 
     private void Validate(RequestExpenseJson request)

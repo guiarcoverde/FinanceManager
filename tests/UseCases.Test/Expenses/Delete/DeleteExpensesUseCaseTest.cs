@@ -40,7 +40,7 @@ public class DeleteExpensesUseCaseTest
     {
         var repositoryWriteOnly = ExpensesWriteOnlyRepositoryBuilder.Build();
         var repository = new ExpensesReadyOnlyRepositoryBuilder().GetById(user, expense).Build();
-        var unitOfWork = UnityOfWorkBuilder.Build();
+        var unitOfWork = UnitOfWorkBuilder.Build();
         var loggedUser = LoggedUserBuild.Build(user);
 
         return new DeleteExpenseUseCase(repositoryWriteOnly, unitOfWork, loggedUser, repository);

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceManager.Infrastructure.DataAccess.Repositories;
 
-internal class UserRepository(FinanceManagerDbContext dbContext) : IUserReadOnlyRepository, IUserWriteOnlyRepository
+internal class UserRepository(FinanceManagerDbContext dbContext) : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository
 {
     private readonly FinanceManagerDbContext _dbContext = dbContext;
 
@@ -20,4 +20,12 @@ internal class UserRepository(FinanceManagerDbContext dbContext) : IUserReadOnly
     public async Task<User?> GetUserByEmail(string email) =>
         await _dbContext.Users.AsNoTracking()
             .FirstOrDefaultAsync(user => user.Email.Equals(email));
+
+    public async Task<User> GetById(long id)
+        => await _dbContext.Users.FirstAsync(user => user.Id == id);
+    
+    public void Update(User user)
+    {
+        _dbContext.Users.Update(user);
+    }
 }

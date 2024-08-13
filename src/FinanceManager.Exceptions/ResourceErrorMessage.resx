@@ -165,4 +165,16 @@
   <data name="INVALID_USERNAME_AND_PASSWORD" xml:space="preserve">
     <value>Username and/or password is invalid.</value>
   </data>
+  <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+    <value>The email is already registered.</value>
+  </data>
+  <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
+    <value>The password is different than the current one.</value>
+  </data>
+  <data name="PASSWORD_REQUIRED" xml:space="preserve">
+    <value>The password is necessary to user registration.</value>
+  </data>
+  <data name="INVALID_PASSWORD" xml:space="preserve">
+    <value>Password is invalid.</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿using Common.TestUtilities.Entities;
+using FinanceManager.API;
 using FinanceManager.Domain.Entities;
 using FinanceManager.Domain.Enums;
 using FinanceManager.Domain.Security.Cryptography;

@@ -12,13 +12,13 @@ using FinanceManager.Exceptions.ExceptionsBase;
 using FluentValidation.Results;
 
 namespace FinanceManager.Application.UseCases.Users.Register;
-public class RegisterUserUseCase(IMapper mapper, IPasswordEncryptor passwordEncryptor, IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository,IUnityOfWork unityOfWork, IAccessTokenGenerator tokenGenerator) : IRegisterUserUseCase
+public class RegisterUserUseCase(IMapper mapper, IPasswordEncryptor passwordEncryptor, IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository,IUnitOfWork unitOfWork, IAccessTokenGenerator tokenGenerator) : IRegisterUserUseCase
 {
 
     private readonly IPasswordEncryptor _passwordEncryptor = passwordEncryptor;
     private readonly IMapper _mapper = mapper;
     private readonly IUserReadOnlyRepository _userReadOnlyRepository = userReadOnlyRepository;
-    private readonly IUnityOfWork _unityOfWork = unityOfWork;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IUserWriteOnlyRepository _userWriteOnlyRepository = userWriteOnlyRepository;
     private readonly IAccessTokenGenerator _tokenGenerator = tokenGenerator;
     
@@ -33,7 +33,7 @@ public class RegisterUserUseCase(IMapper mapper, IPasswordEncryptor passwordEncr
 
         await _userWriteOnlyRepository.Add(user);
 
-        await _unityOfWork.Commit();
+        await _unitOfWork.Commit();
 
         return new ResponseRegisteredUserJson()
         {
