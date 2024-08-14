@@ -2,5 +2,5 @@
 
 public class ResponseExpensesJson
 {
-    public List<ResponseShortExpensesJson> Expenses { get; set; } = [];
+    public List<ResponseShortExpensesJson> Expenses { get; set; } = []; 
 }

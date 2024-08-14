@@ -1,6 +1,7 @@
 ﻿using FinanceManager.Domain.Entities;
 using FinanceManager.Domain.Repositories.Expenses;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace FinanceManager.Infrastructure.DataAccess.Repositories;
 
@@ -8,10 +9,7 @@ internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseR
 {
     private readonly FinanceManagerDbContext _dbContext = dbContext;
 
-    public async Task Add(Expense expense)
-    {
-        await _dbContext.Expenses.AddAsync(expense);
-    }
+    public async Task Add(Expense expense) => await _dbContext.Expenses.AddAsync(expense);
 
     public async Task Delete(long id)
     {
@@ -24,15 +22,15 @@ internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseR
         await _dbContext.Expenses.AsNoTracking().Where(e => e.UserId == user.Id).ToListAsync();
 
     async Task<Expense?> IExpenseReadOnlyRepository.GetById(User user, long id) =>
-        await _dbContext.Expenses.FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
+        await GetFullExpense()
+            .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
 
     async Task<Expense?> IExpenseUpdateOnlyRepository.GetById(User user,long id) =>
-        await _dbContext.Expenses.FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
-    public void Update(Expense expense)
-    {
-        _dbContext.Expenses.Update(expense);
-    }
-    
+        await GetFullExpense()
+            .FirstOrDefaultAsync(e => e.Id == id && e.UserId == user.Id);
+    public void Update(Expense expense) => _dbContext.Expenses.Update(expense);
+
     public async Task<List<Expense>> FilterByMonth(User user, DateOnly date)
     {
         var startDate = new DateTime(year: date.Year, month: date.Month, day: 1).Date;
@@ -49,6 +47,11 @@ internal class ExpensesRepository(FinanceManagerDbContext dbContext) : IExpenseR
             .ToListAsync();
         
         
+    }
+
+    private IIncludableQueryable<Expense, ICollection<Tag>> GetFullExpense()
+    {
+        return _dbContext.Expenses.Include(expense => expense.Tags);
     }
 
 }
