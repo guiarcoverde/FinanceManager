@@ -4,7 +4,7 @@ using FinanceManager.Communication.Enums;
 using FinanceManager.Exceptions;
 using FluentAssertions;
 
-namespace Validators.Tests.Expenses.Register;
+namespace Validators.Tests.Expenses;
 
 public class ExpenseValidatorTest
 {
@@ -75,5 +75,18 @@ public class ExpenseValidatorTest
 
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceErrorMessage.AMOUNT_MUST_BE_GREATER_THAN_ZERO));
+    }
+    
+    [Fact]
+    public void InvalidTagError()
+    {
+        ExpenseValidator validator = new();
+        var request = RequestExpenseJsonBuilder.Build();
+        request.Tags.Add((Tags)1000);
+
+        var result = validator.Validate(request);
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(ResourceErrorMessage.TAG_TYPE_NOT_SUPPORTED));
     }
 }

@@ -28,7 +28,9 @@ public class UpdateExpenseUseCase(IMapper mapper, IUnitOfWork unitOfWork, IExpen
         {
             throw new NotFoundException(ResourceErrorMessage.EXPENSE_NOT_FOUND);
         }
-
+        
+        expense.Tags.Clear();
+        
         _mapper.Map(request, expense);
         
         _repository.Update(expense);
